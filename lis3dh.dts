@@ -1,0 +1,34 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+	part-number = "lis3dh";
+	version = "00A0";
+
+	exclusive-use =
+		"P9.1",		/* DGND */
+		"P9.3",		/* VD_3V3 */
+		"P9.15",	/* gpio interrupt */
+		"P9.19",	/* i2c scl */
+		"P9.20",	/* i2c sda */
+		"i2c2";
+
+	fragment@0 {
+		target = <&i2c2>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <>;
+
+			#address-cells = <1>;
+			#size-cells = <0>;
+			lis3dh@18 {
+				compatible = "st,BBLIS3DH";
+				reg = <0x18>;
+			};
+		};
+	};
+};
