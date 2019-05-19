@@ -1,0 +1,12 @@
+.lis3dh.o.cmd
+.lxdriver.ko.cmd
+.lxdriver.mod.o.cmd
+.lxdriver.o.cmd
+.tmp_versions/
+Module.symvers
+lis3dh.o
+lxdriver.ko
+lxdriver.mod.*
+lxdriver.o
+modules.order
+*.dtbo
