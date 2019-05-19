@@ -6,7 +6,6 @@
 CORES=$(grep -c ^processor /proc/cpuinfo)
 TOOLS_DIR="../lis3dh_tools/"
 TOOLCHAIN="gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux"
-ARM_CROSS_COMPILER=${TOOLS_DIR}${TOOLCHAIN}/bin/arm-linux-gnueabihf-
 KERNEL_TAG="4.1.15-ti-rt-r43"
 KERNEL_DIR="${TOOLS_DIR}/linux"
 
@@ -18,13 +17,16 @@ mkdir -p ${TOOLS_DIR}
 
 echo "Downloading linaro toolchain"
 wget https://releases.linaro.org/archive/14.09/components/toolchain/binaries/${TOOLCHAIN}.tar.xz || { echo "download failed, check your internet connection"; exit 1; }
+echo "Archive extraction..."
 tar -xf ${TOOLCHAIN}.tar.xz -C ${TOOLS_DIR} 
 
 echo "Download kernel sources"
 git clone --depth 1 --branch ${KERNEL_TAG} https://github.com/beagleboard/linux ${TOOLS_DIR}/linux
 
 cp lxbeaglebone_defconfig $KERNEL_DIR/.config 
-cp Module.symvers.beaglebone $KERNEL_DIR/Module.symvers_ext
+cp Module.symvers_beaglebone $KERNEL_DIR/Module.symvers_ext
+
+ARM_CROSS_COMPILER="$(readlink -f ${TOOLS_DIR})/${TOOLCHAIN}/bin/arm-linux-gnueabihf-"
 
 pushd $KERNEL_DIR
 
