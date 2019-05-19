@@ -1,5 +1,4 @@
 KERNELDIR := ../lis3dh_tools/linux
-ARM_COMPILER := ../lis3dh_tools/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux/bin/arm-linux-gnueabihf-
 ARCH := arm
 PWD := ${shell pwd}
 

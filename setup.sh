@@ -32,6 +32,9 @@ cp Module.symvers_beaglebone $KERNEL_DIR/Module.symvers_ext
 
 ARM_CROSS_COMPILER="$(readlink -f ${TOOLS_DIR})/${TOOLCHAIN}/bin/arm-linux-gnueabihf-"
 
+echo "ARM_COMPILER := ${ARM_CROSS_COMPILER}" | cat - Makefile > .tmp
+mv .tmp Makefile
+
 pushd $KERNEL_DIR
 
 echo "Prepare linux sources"
