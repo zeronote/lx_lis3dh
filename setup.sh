@@ -1,13 +1,15 @@
 #!/bin/bash
 
-#check root
-#check write priviledges and exec
-
 CORES=$(grep -c ^processor /proc/cpuinfo)
 TOOLS_DIR="../lis3dh_tools/"
 TOOLCHAIN="gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux"
 KERNEL_TAG="4.1.15-ti-rt-r43"
 KERNEL_DIR="${TOOLS_DIR}/linux"
+
+if [ "$EUID" -eq 0 ]; then
+    echo "ERROR: do not run this script as root!"
+    exit 1
+fi
 
 if [ ! -f "/usr/bin/dtc" ]; then
 	echo "WARNING: it seems that dtc is not installed, you won't be able to generate the dtbo"
