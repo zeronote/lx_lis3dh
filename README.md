@@ -24,6 +24,21 @@ The following packages are needed if you are on a Debian/Ubuntu based host machi
  - `lzop`
  - `lib32z1`
  - `device-tree-compiler`
+ 
+## Pre-setup
+To avoid problems during kernel module `insmod`, replace the `Module.symvers_beaglebone` in this repo with the one in you kernel headers.
+E.g.
+
+`scp debian@192.168.7.2:/usr/src/$(uname -r)/Module.symvers Module.symvers_beaglebone`
+
+this should prevent errors like:
+
+`insmod error: inserting './lxdriver.ko': -1 Invalid module format`
+
+which, looking at dmesg, point us to the `Module.symvers` root cause:
+
+`lxdriver.ko: no symbol version for module_layout`
+
 
 ## Setup
 Simply executing `setup.sh` should download, configure and cross-compile everything for you except the LIS3DH kernel module that you're supposed to cross-compile by yourself using `make` once the setup.sh script exit. If everything went well, you should have the followings in your current directory:
@@ -46,7 +61,7 @@ and reboot your BBB.
 
 Finally we can load the dtb overlay
 
-`sudo sh -c 'echo BB-LX-ACCEL-00A0.DTBO > /sys/devices/platform/bone_capemgr/slots`
+`sudo sh -c 'echo BB-LX-ACCEL-00A0.DTBO > /sys/devices/platform/bone_capemgr/slots'`
 
 load the kernel module:
 
