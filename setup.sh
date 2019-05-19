@@ -18,7 +18,7 @@ mkdir -p ${TOOLS_DIR}
 
 echo "Downloading linaro toolchain"
 wget https://releases.linaro.org/archive/14.09/components/toolchain/binaries/${TOOLCHAIN}.tar.xz || { echo "download failed, check your internet connection"; exit 1; }
-tar -xf ${TOOLCHAIN} -C ${TOOLS_DIR} 
+tar -xf ${TOOLCHAIN}.tar.xz -C ${TOOLS_DIR} 
 
 echo "Download kernel sources"
 git clone --depth 1 --branch ${KERNEL_TAG} https://github.com/beagleboard/linux ${TOOLS_DIR}/linux
