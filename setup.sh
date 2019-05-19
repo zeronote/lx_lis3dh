@@ -15,13 +15,17 @@ fi
 
 mkdir -p ${TOOLS_DIR}
 
-echo "Downloading linaro toolchain"
-wget https://releases.linaro.org/archive/14.09/components/toolchain/binaries/${TOOLCHAIN}.tar.xz || { echo "download failed, check your internet connection"; exit 1; }
-echo "Archive extraction..."
-tar -xf ${TOOLCHAIN}.tar.xz -C ${TOOLS_DIR} 
+if [ ! -d "${TOOLS_DIR}${TOOLCHAIN}" ]; then
+	echo "Downloading linaro toolchain"
+	wget https://releases.linaro.org/archive/14.09/components/toolchain/binaries/${TOOLCHAIN}.tar.xz || { echo "download failed, check your internet connection"; exit 1; }
+	echo "Archive extraction..."
+	tar -xf ${TOOLCHAIN}.tar.xz -C ${TOOLS_DIR} 
+fi
 
-echo "Download kernel sources"
-git clone --depth 1 --branch ${KERNEL_TAG} https://github.com/beagleboard/linux ${TOOLS_DIR}/linux
+if [ ! -d "${KERNEL_DIR}" ]; then
+	echo "Download kernel sources"
+	git clone --depth 1 --branch ${KERNEL_TAG} https://github.com/beagleboard/linux ${TOOLS_DIR}/linux
+fi
 
 cp lxbeaglebone_defconfig $KERNEL_DIR/.config 
 cp Module.symvers_beaglebone $KERNEL_DIR/Module.symvers_ext
