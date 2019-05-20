@@ -23,7 +23,9 @@ The following packages are needed if you are on a Debian/Ubuntu based host machi
  - `lib32stdc++6`
  - `lzop`
  - `lib32z1`
+ - `zlibc`
  - `device-tree-compiler`
+ - `build-essential`
  
 ## Pre-setup
 To avoid problems during kernel module `insmod`, replace the `Module.symvers_beaglebone` in this repo with the one in you kernel headers.
@@ -85,11 +87,4 @@ and check our 3-axis accelerations:
 780,304,541  
 780,304,541  
 780,304,541  
-780,304,541  
-780,304,541  
-780,304,541  
-780,304,541  
-780,304,541  
-780,304,541  
-780,304,541  
-780,304,541
+
